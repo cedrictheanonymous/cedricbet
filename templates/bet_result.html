@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bet Result - Cedric Bet</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f4f7;
+            text-align: center;
+            padding: 30px 15px;
+        }
+
+        .card {
+            max-width: 450px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #111827;
+        }
+
+        .success {
+            color: #16a34a;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .info {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #111827;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>⚽ Cedric Bet</h1>
+
+    <p class="success">✅ Demo Bet Placed!</p>
+
+    <div class="info">
+
+        <p>
+            <strong>Selection:</strong>
+            {{ team }}
+        </p>
+
+        <p>
+            <strong>Odds:</strong>
+            {{ odds }}
+        </p>
+
+        <p>
+            <strong>Virtual Stake:</strong>
+            KSh {{ "%.2f"|format(stake) }}
+        </p>
+
+        <p>
+            <strong>Potential Win:</strong>
+            KSh {{ "%.2f"|format(possible_win) }}
+        </p>
+
+        <p>
+            <strong>Remaining Balance:</strong>
+            KSh {{ "%.2f"|format(balance) }}
+        </p>
+
+    </div>
+
+    <a href="/">
+        <button>Back to Matches</button>
+    </a>
+
+</div>
+
+</body>
+
+</html>

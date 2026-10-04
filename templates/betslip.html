@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Bet Slip - Cedric Bet</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f2f4f7;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .selection {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #111827;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .demo {
+            text-align: center;
+            background: #f59e0b;
+            padding: 8px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="demo">
+        DEMO MODE — VIRTUAL MONEY ONLY
+    </div>
+
+    <div class="card">
+
+        <h1>🎟️ Bet Slip</h1>
+
+        <div class="selection">
+
+            <p>
+                <strong>Selection:</strong>
+                {{ team }}
+            </p>
+
+            <p>
+                <strong>Odds:</strong>
+                {{ odds }}
+            </p>
+
+        </div>
+
+        <form
+            action="/bet"
+            method="POST"
+        >
+
+            <input
+                type="hidden"
+                name="team"
+                value="{{ team }}"
+            >
+
+            <input
+                type="hidden"
+                name="odds"
+                value="{{ odds }}"
+            >
+
+            <label>
+                Virtual Stake
+            </label>
+
+            <input
+                type="number"
+                name="stake"
+                placeholder="Enter amount"
+                min="1"
+                step="1"
+                required
+                oninput="calculateWin()"
+            >
+
+            <p>
+                Possible win:
+                <strong>
+                    KSh <span id="possibleWin">0.00</span>
+                </strong>
+            </p>
+
+            <button type="submit">
+                PLACE DEMO BET
+            </button>
+
+        </form>
+
+        <br>
+
+        <a href="/">
+            ← Back to matches
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const odds = {{ odds }};
+
+    function calculateWin() {
+
+        const stake =
+            parseFloat(
+                document.querySelector(
+                    'input[name="stake"]'
+                ).value
+            ) || 0;
+
+        const win = stake * odds;
+
+        document.getElementById(
+            "possibleWin"
+        ).textContent =
+            win.toFixed(2);
+    }
+
+</script>
+
+</body>
+
+</html>

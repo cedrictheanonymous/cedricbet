@@ -1,0 +1,441 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cedric Bet</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f4f7;
+    color: #111827;
+}
+
+.header {
+    background: #111827;
+    color: white;
+    padding: 20px;
+}
+
+.header-content {
+    max-width: 700px;
+    margin: auto;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.demo {
+    background: #fff3cd;
+    color: #856404;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 12px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px 15px;
+}
+
+.user-card {
+    background: white;
+    padding: 18px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.balance {
+    font-size: 25px;
+    font-weight: bold;
+    margin: 10px 0 15px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 11px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.history {
+    background: #111827;
+    color: white;
+}
+
+.logout {
+    background: #dc2626;
+    color: white;
+}
+
+.login {
+    background: #111827;
+    color: white;
+}
+
+.register {
+    background: #16a34a;
+    color: white;
+}
+
+.section-title {
+    margin: 25px 0 15px;
+}
+
+.match {
+    background: white;
+    border-radius: 15px;
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.league {
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.match-date {
+    text-align: center;
+    color: #6b7280;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.teams {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.vs {
+    color: #9ca3af;
+    margin: 0 8px;
+    font-size: 13px;
+}
+
+.odds {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.odd-form {
+    margin: 0;
+}
+
+.odd-button {
+    width: 100%;
+    border: none;
+    border-radius: 9px;
+    background: #eef0f2;
+    padding: 12px 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.odd-button:hover {
+    background: #dfe3e7;
+}
+
+.label {
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+.value {
+    font-size: 17px;
+    color: #16a34a;
+}
+
+.no-matches {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.notice {
+    text-align: center;
+    color: #6b7280;
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<div class="header">
+
+    <div class="header-content">
+
+        <div class="logo">
+            ⚽ CEDRIC BET
+        </div>
+
+        <div class="demo">
+            DEMO MODE — VIRTUAL MONEY ONLY
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="container">
+
+
+{% if user %}
+
+<div class="user-card">
+
+    <h2>
+        Welcome, {{ user.username }} 👋
+    </h2>
+
+    <div>
+        Virtual Balance
+    </div>
+
+    <div class="balance">
+        KSh {{ "%.2f"|format(user.balance) }}
+    </div>
+
+    <div class="buttons">
+
+        <a href="/history" class="btn history">
+            📋 Bet History
+        </a>
+
+        <a href="/logout" class="btn logout">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+{% else %}
+
+<div class="user-card">
+
+    <h2>Welcome to Cedric Bet ⚽</h2>
+
+    <p>
+        Create a demo account and use virtual money.
+    </p>
+
+    <div class="buttons">
+
+        <a href="/register" class="btn register">
+            Create Account
+        </a>
+
+        <a href="/login" class="btn login">
+            Login
+        </a>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+
+<h2 class="section-title">
+    🔥 Upcoming Matches
+</h2>
+
+
+{% if matches %}
+
+    {% for match in matches %}
+
+    <div class="match">
+
+        <div class="league">
+            🏆 PREMIER LEAGUE
+        </div>
+
+        <div class="match-date">
+
+            {{ match.date.strftime("%d %b %Y • %H:%M UTC") }}
+
+        </div>
+
+        <div class="teams">
+
+            {{ match.home }}
+
+            <span class="vs">VS</span>
+
+            {{ match.away }}
+
+        </div>
+
+
+        {% if user %}
+
+        <div class="odds">
+
+            <form class="odd-form" method="POST" action="/betslip">
+
+                <input
+                    type="hidden"
+                    name="team"
+                    value="{{ match.home }}"
+                >
+
+                <input
+                    type="hidden"
+                    name="odds"
+                    value="1.80"
+                >
+
+                <button class="odd-button" type="submit">
+
+                    <span class="label">
+                        HOME
+                    </span>
+
+                    <span class="value">
+                        1.80
+                    </span>
+
+                </button>
+
+            </form>
+
+
+            <form class="odd-form" method="POST" action="/betslip">
+
+                <input
+                    type="hidden"
+                    name="team"
+                    value="Draw"
+                >
+
+                <input
+                    type="hidden"
+                    name="odds"
+                    value="3.50"
+                >
+
+                <button class="odd-button" type="submit">
+
+                    <span class="label">
+                        DRAW
+                    </span>
+
+                    <span class="value">
+                        3.50
+                    </span>
+
+                </button>
+
+            </form>
+
+
+            <form class="odd-form" method="POST" action="/betslip">
+
+                <input
+                    type="hidden"
+                    name="team"
+                    value="{{ match.away }}"
+                >
+
+                <input
+                    type="hidden"
+                    name="odds"
+                    value="4.00"
+                >
+
+                <button class="odd-button" type="submit">
+
+                    <span class="label">
+                        AWAY
+                    </span>
+
+                    <span class="value">
+                        4.00
+                    </span>
+
+                </button>
+
+            </form>
+
+        </div>
+
+        {% else %}
+
+        <div class="notice">
+            Login to place a demo bet.
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+<div class="no-matches">
+
+    <h3>No upcoming matches found</h3>
+
+    <p>
+        The football API did not return upcoming Premier League fixtures.
+    </p>
+
+    <p>
+        Check your API token and internet connection.
+    </p>
+
+</div>
+
+{% endif %}
+
+
+<p class="notice">
+    ⚠️ All bets on this website use virtual money only.
+</p>
+
+
+</div>
+
+</body>
+</html>

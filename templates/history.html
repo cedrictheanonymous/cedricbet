@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bet History - Cedric Bet</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f4f7;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+}
+
+.header {
+    background: #111827;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+.demo {
+    background: #fff3cd;
+    color: #856404;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.bet {
+    background: white;
+    padding: 18px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.bet h3 {
+    margin-top: 0;
+}
+
+.pending {
+    color: #d97706;
+    font-weight: bold;
+}
+
+.info {
+    line-height: 1.7;
+}
+
+.back {
+    display: inline-block;
+    background: #111827;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.empty {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>⚽ Cedric Bet</h1>
+
+        <div class="demo">
+            DEMO MODE — VIRTUAL MONEY ONLY
+        </div>
+    </div>
+
+    <h2>📋 Bet History</h2>
+
+    {% if bets %}
+
+        {% for bet in bets %}
+
+        <div class="bet">
+
+            <h3>{{ bet.team }}</h3>
+
+            <div class="info">
+
+                <div>
+                    <strong>Odds:</strong>
+                    {{ "%.2f"|format(bet.odds) }}
+                </div>
+
+                <div>
+                    <strong>Virtual Stake:</strong>
+                    KSh {{ "%.2f"|format(bet.stake) }}
+                </div>
+
+                <div>
+                    <strong>Possible Win:</strong>
+                    KSh {{ "%.2f"|format(bet.possible_win) }}
+                </div>
+
+                <div>
+                    <strong>Status:</strong>
+                    <span class="pending">
+                        {{ bet.status }}
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty">
+            <h3>No bets yet.</h3>
+            <p>Your demo bets will appear here.</p>
+        </div>
+
+    {% endif %}
+
+    <a class="back" href="/">
+        ← Back to Matches
+    </a>
+
+</div>
+
+</body>
+</html>
